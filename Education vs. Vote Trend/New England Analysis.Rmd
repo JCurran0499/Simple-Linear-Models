@@ -1,0 +1,43 @@
+---
+title: "Analysis of Education in Presidential Preferences in New England"
+author: "John Curran"
+date: "10 October 2020"
+output: pdf_document
+---
+
+This is an analysis of the correlation of college education and vote preference in New England.
+
+```{r}
+library(readxl)
+statedata <- read_excel("~/NESwings.xlsx")
+attach(statedata)
+
+model2016 <- lm(SWING2016~COLLEGE2018)
+model1996 <- lm(SWING1996~COLLEGE1990)
+```
+```{r}
+par(mfrow=c(1,2))
+plot(COLLEGE2018, SWING2016)
+plot(COLLEGE1990, SWING1996)
+```
+```{r}
+summary(model2016)
+summary(model1996)
+```
+
+
+```{r}
+par(mfrow=c(2,2))
+plot(model2016, 1)
+plot(model2016, 2)
+plot(model1996, 1)
+plot(model1996, 2)
+```
+
+
+```{r}
+par(mfrow=c(1,2))
+hist(model2016$residuals)
+hist(model1996$residuals)
+```
+
